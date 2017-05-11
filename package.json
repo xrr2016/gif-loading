@@ -1,0 +1,42 @@
+{
+  "name": "node-login",
+  "version": "0.1.0",
+  "description": "nodejs login system",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xrr2016/node-login.git"
+  },
+  "author": "xrr2016",
+  "license": "MIT",
+  "dependencies": {
+    "bcryptjs": "*",
+    "body-parser": "*",
+    "connect-flash": "*",
+    "express": "*",
+    "express-handlebars": "*",
+    "express-messages": "*",
+    "express-session": "*",
+    "express-validator": "*",
+    "mongodb": "*",
+    "mongoose": "*",
+    "passport": "*",
+    "passport-http": "*",
+    "passport-local": "*"
+  },
+  "devDependencies": {
+    "babel-core": "^6.24.1",
+    "babel-polyfill": "^6.23.0",
+    "babel-preset-latest": "^6.24.1",
+    "babel-register": "^6.24.1",
+    "nodemon": "^1.11.0"
+  },
+  "bugs": {
+    "url": "https://github.com/xrr2016/node-login/issues"
+  },
+  "homepage": "https://github.com/xrr2016/node-login#readme"
+}
