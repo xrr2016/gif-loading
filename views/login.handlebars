@@ -1,4 +1,9 @@
 <h2 class="page-header">Account Login</h2>
+{{#if newUser}}
+  <div class="alert alert-success" role="alert">
+    <strong>{{ newUser.nickname }}</strong>cool!
+  </div>
+{{/if}}
 <form action="post" action="/users/login">
   <div class="form-group">
     <label for="">Username</label>

@@ -20,9 +20,12 @@ router.post('/register', (req, res) => {
     res.render('register', { errors })
   } else {
     const newUser = new User({ nickname, username, password, email })
-    createUser(newUser)
-    req.success('success_msg', 'Well Done!')
-    res.redirect('/users/login', { newUser })
+    createUser(newUser, () => {
+      newUser.save()
+    })
+    req.flash('user', newUser)
+    req.flash('success_msg', 'Well Done!')
+    res.redirect(302, '/users/login')
   }
 })
 

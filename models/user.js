@@ -28,11 +28,11 @@ const userSchema = mongoose.Schema({
 
 export default mongoose.model('User', userSchema)
 
-export const createUser = (user) => {
+export const createUser = (user, callback) => {
   bcrypt.genSalt(10, (err, salt) => {
     bcrypt.hash(user.password, salt, (err, hash) => {
       user.password = hash
-      user.save()
+      callback(user)
     })
   })
 }
