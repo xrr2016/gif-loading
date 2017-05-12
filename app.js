@@ -13,13 +13,12 @@ import mongoose from 'mongoose'
 import indexRoutes from './routes/index'
 import usersRoutes from './routes/user'
 
+mongoose.Promise = global.Promise
 mongoose.connect('mongodb://localhost/node-login', err => {
   if (err) {
     console.log(err)
   }
 })
-
-const db = mongoose.connection
 
 const app = express()
 
