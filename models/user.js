@@ -26,7 +26,9 @@ const userSchema = mongoose.Schema({
   }
 })
 
-export default mongoose.model('User', userSchema)
+const User = mongoose.model('User', userSchema)
+
+export default User
 
 export const createUser = (user, callback) => {
   bcrypt.genSalt(10, (err, salt) => {
@@ -34,5 +36,21 @@ export const createUser = (user, callback) => {
       user.password = hash
       callback(user)
     })
+  })
+}
+
+export const getUserByUsername = function (username, callback) {
+  var query = { username: username }
+  User.findOne(query, callback)
+}
+
+export const getUserById = function (id, callback) {
+  User.findById(id, callback)
+}
+
+export const comparePassword = function (candidatePassword, hash, callback) {
+  bcrypt.compare(candidatePassword, hash, function (err, isMatch) {
+    if (err) throw err
+    callback(null, isMatch)
   })
 }

@@ -6,7 +6,6 @@ import validator from 'express-validator'
 import flash from 'connect-flash'
 import session from 'express-session'
 import passport from 'passport'
-import { LocaLStrategy } from 'passport-local'
 import mongo from 'mongodb'
 import mongoose from 'mongoose'
 
@@ -62,7 +61,7 @@ app.use((req, res, next) => {
   res.locals.success_msg = req.flash('success_msg')
   res.locals.error_msg = req.flash('error_msg')
   res.locals.error = req.flash('error')
-  res.locals.user = req.flash('user')
+  res.locals.user = req.user || null
   next()
 })
 

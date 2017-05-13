@@ -19,9 +19,12 @@
     <a class="navbar-brand text-white" href="/">App</a>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav">
-        <a class="nav-item nav-link text-white active" href="/users/login">Login<span class="sr-only">(current)</span></a>
-        <a class="nav-item nav-link text-white" href="/users/register">Register</a>
-        <a class="nav-item nav-link text-white" href="/users/logout">Logout</a>
+        {{#if user}}
+          <a class="nav-item nav-link text-white" href="/users/logout">Logout</a>
+        {{else}}
+          <a class="nav-item nav-link text-white active" href="/users/login">Login<span class="sr-only">(current)</span></a>
+          <a class="nav-item nav-link text-white" href="/users/register">Register</a>
+        {{/if }}
       </div>
     </div>
   </nav>

@@ -1,7 +1,15 @@
 import express from 'express'
-import User, { createUser } from '../models/user'
-
+import User, {
+  createUser,
+  getUserByUsername,
+  getUserById,
+  comparePassword
+} from '../models/user'
+import passport from 'passport'
+// import { LocalStrategy } from 'passport-local'
+const LocalStrategy = require('passport-local').Strategy
 const router = express.Router()
+
 // register route
 router.get('/register', (req, res) => {
   res.render('register')
@@ -34,4 +42,52 @@ router.get('/login', (req, res) => {
   res.render('login')
 })
 
+passport.use(
+  new LocalStrategy(function (username, password, done) {
+    getUserByUsername(username, function (err, user) {
+      if (err) throw err
+      if (!user) {
+        return done(null, false, { message: 'Unknown User' })
+      }
+
+      comparePassword(password, user.password, function (err, isMatch) {
+        if (err) throw err
+        if (isMatch) {
+          return done(null, user)
+        } else {
+          return done(null, false, { message: 'Invalid password' })
+        }
+      })
+    })
+  })
+)
+
+passport.serializeUser(function (user, done) {
+  done(null, user.id)
+})
+
+passport.deserializeUser(function (id, done) {
+  User.findById(id, function (err, user) {
+    done(err, user)
+  })
+})
+
+router.post(
+  '/login',
+  passport.authenticate('local', {
+    successRedirect: '/',
+    failureRedirect: '/users/login',
+    failureFlash: true
+  }),
+  function (req, res) {
+    res.redirect('/')
+  }
+)
+
+
+router.get('/logout', (req, res, next) => {
+  req.logout()
+  req.flash('success_msg', 'Logout success!')
+  res.redirect('/')
+})
 export default router
